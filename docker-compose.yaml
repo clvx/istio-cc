@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  server:
+    image: "clvx/cb:3716a5a"
+    command: serve
+    ports:
+    - "3000:3000"
+  client:
+    image: "clvx/cb:3716a5a"
+    command: run -u "http://server:3000"

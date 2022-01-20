@@ -2,9 +2,10 @@ APP ?= cb
 PROJECT_PATH ?= ./src
 ENV ?=
 DOCKERFILEBUILD ?= Dockerfile.build
-REGISTRY ?= clvx 
+REGISTRY ?= clvx
 IMAGE ?= cb
-TAG ?= $(shell git rev-parse --short HEAD)
+#TAG ?= $(shell git rev-parse --short HEAD)
+TAG ?= latest
 PORT ?= 3000
 URL ?= http://localhost:3000
 
@@ -14,8 +15,9 @@ build:
 build-docker:
 	docker build -f ${DOCKERFILEBUILD} --output src/bin/ .
 
-push:
+package:
 	docker build -t ${REGISTRY}/${IMAGE}:${TAG} .
+push:
 	docker push ${REGISTRY}/${IMAGE}:${TAG}
 
 run:
