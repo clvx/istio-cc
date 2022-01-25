@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: cb-server
+spec:
+  host: cb-server
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 5 #If maxConnections only, it only allows 5 tcp connections
+                          #until one of them finishes to let another connection start
+      http:
+        http1MaxPendingRequests: 3
