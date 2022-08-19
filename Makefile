@@ -17,6 +17,14 @@ build-docker:
 
 package:
 	docker build -t ${REGISTRY}/${IMAGE}:${TAG} .
+
+package-oci:
+	flux push artifact oci://docker.io/clvx/cb-manifests:$(shell git rev-parse --short HEAD) \
+	--path="./manifests" \
+	--source="$(shell git config --get remote.origin.url)" \
+	--revision="$(shell git branch --show-current)/$(shell git rev-parse HEAD)"
+	flux tag artifact oci://docker.io/clvx/cb-manifests:$(shell git rev-parse --short HEAD) --tag latest
+
 push:
 	docker push ${REGISTRY}/${IMAGE}:${TAG}
 
@@ -28,3 +36,5 @@ serve:
 
 clean:
 	rm -rf ./src/bin 2> /dev/null
+
+
