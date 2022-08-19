@@ -2,31 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cb-client
-  labels:
-    app: cb-client
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: cb-client
-  template:
-    metadata:
-      labels:
-        app: cb-client
-    spec:
-      containers:
-      - name: cb-client
-        image: clvx/cb:latest
-        args:
-        - "run"
-        - "-u"
-        - "http://cb-server"
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: cb-server
   labels:
     app: cb-server
